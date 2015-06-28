@@ -8,3 +8,10 @@ Just create your module, put it into mod folder, and register it in the config f
 ### Requirement
 - Mongodb
 - pymongo (python module for mongodb driver)
+
+### How to
+If you want to add new module, please see ipinfo module for the sample. After that, just run botgram every 5 / 10 / 15 / whatever seconds that you want to.
+
+```sh
+$ python botgram.py
+```
