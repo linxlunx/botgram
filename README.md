@@ -15,3 +15,6 @@ If you want to add new module, please see ipinfo module for the sample. After th
 ```sh
 $ python botgram.py
 ```
+
+### Command List
+Just send /help to your chatbot

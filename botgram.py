@@ -73,6 +73,7 @@ class Tele:
 
 
 	def send_message(self, chat_id, text):
+		# Send message function, receive any output from command
 		uri = '/sendMessage'
 		post_data = urllib.urlencode({
 				'chat_id' : chat_id,
@@ -82,14 +83,26 @@ class Tele:
 		urllib2.urlopen(send_message_url, post_data)
 		return True
 
+	def get_help(self):
+		# Special command for command list, exclude from module
+		help_text = '{0}    {1}\n'.format('/help', 'Help and command list')
+		for i in self.module:
+			help_text += '{0}    {1}\n'.format(i, self.module[i][1])
+		return help_text
+
 	def execute(self, list_update):
+		# Execute command when receive message
 		for i in list_update:
 			try:
 				command = i['text'].split()[0]
-				if command not in self.module:
-					print 'command not registered'.format(command)
-				text_message = self.module[command](i)
-				self.send_message(i['chat_id'], text_message)
+				if command == '/help':
+					help_list = self.get_help()
+					self.send_message(i['chat_id'], help_list)
+				else:
+					if command not in self.module:
+						print 'command not registered'.format(command)
+					text_message = self.module[command][0](i)
+					self.send_message(i['chat_id'], text_message)
 			except Exception, e:
 				print e
 				print 'command not registered'
