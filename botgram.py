@@ -93,21 +93,31 @@ class Tele:
 	def execute(self, list_update):
 		# Execute command when receive message
 		for i in list_update:
+			parse_text = i['text'].split()
 			try:
-				command = i['text'].split()[0]
+				command = parse_text[0]
+				# Special help command for list command and it's description
 				if command == '/help':
-					help_list = self.get_help()
+					# if command length more than one, than show example
+					if len(parse_text) > 1:
+						if '/{0}'.format(parse_text[1]) not in self.module:
+							print 'command not registered'
+						help_list = self.module['/{0}'.format(parse_text[1])][2]
+					else:
+						help_list = self.get_help()
 					self.send_message(i['chat_id'], help_list)
+				# if not help, check the module, if exists, execute module
 				else:
 					if command not in self.module:
-						print 'command not registered'.format(command)
+						print 'command not registered'
 					text_message = self.module[command][0](i)
 					self.send_message(i['chat_id'], text_message)
 			except Exception, e:
 				print e
 				print 'command not registered'
 
-tele = Tele()
-data = tele.checkId()
-if data:
-	tele.execute(data)
+if __name__ == '__main__':
+	tele = Tele()
+	data = tele.checkId()
+	if data:
+		tele.execute(data)

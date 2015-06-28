@@ -8,6 +8,6 @@ from mod.ipinfo import ipinfo
 config = {
 	'token' : 'Use your own telegram bot token',
 	'module' : {
-		'/whois' : (ipinfo, 'Getting ip address information'),
+		'/whois' : (ipinfo, 'Getting ip address information', 'e.g: /whois 8.8.8.8'),
 	}
 }

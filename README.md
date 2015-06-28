@@ -18,3 +18,5 @@ $ python botgram.py
 
 ### Command List
 Just send /help to your chatbot
+
+![alt tag](http://blog.bermain.net/tele_bot.png)
