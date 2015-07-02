@@ -55,19 +55,21 @@ class Tele:
 							{'chat_id' : chat_id},
 						]
 					})
-				if not per_id:
-					update_list.append({
-							'update_id' : update_id,
-							'chat_id' : temp['message']['chat']['id'],
-							'text' : temp['message']['text']
-						})
 
-					self.db.chat.insert({
-							'update_id' : update_id,
-							'chat_id' : chat_id,
-							'date' : mess_date,
-							'text' : temp['message']['text'],
-						})
+				if not per_id:
+					if 'text' in temp['message']:
+						update_list.append({
+								'update_id' : update_id,
+								'chat_id' : temp['message']['chat']['id'],
+								'text' : temp['message']['text']
+							})
+
+						self.db.chat.insert({
+								'update_id' : update_id,
+								'chat_id' : chat_id,
+								'date' : mess_date,
+								'text' : temp['message']['text'],
+							})
 
 		return update_list
 
