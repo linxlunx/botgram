@@ -10,7 +10,7 @@ from config import config
 class Tele:
 	def __init__(self):
 		# open database connection
-		self.database = 'telegram_research'
+		self.database = 'telegram'
 		self.client = pymongo.MongoClient()
 		self.db = self.client[self.database]
 
