@@ -20,6 +20,9 @@ class Tele:
 		self.token = config['token']
 		self.full_url = '{0}/bot{1}'.format(self.url, self.token)
 
+		# set username
+		self.username = config['username']
+		
 		# register module
 		self.module = config['module']
 
@@ -97,7 +100,12 @@ class Tele:
 		for i in list_update:
 			parse_text = i['text'].split()
 			try:
-				command = parse_text[0]
+				temp_command = parse_text[0]
+				if len(temp_command.split('@')) == 2:
+					mention = temp_command.split('@')[1]
+					if mention != self.username:
+						return 'wrong user'
+				command = temp_command.split('@')[0]
 				# Special help command for list command and it's description
 				if command == '/help':
 					# if command length more than one, than show example
